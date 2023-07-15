@@ -4236,6 +4236,23 @@
           </preprocessorList>
         </ccTool>
       </item>
+      <item path="/home/oleg/tmp/tests/WxTestDialog/MySimpleDialog.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/lib64/wx/include/gtk3-unicode-3.2</pElem>
+            <pElem>/usr/include/wx-3.2</pElem>
+            <pElem>build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>WXUSINGDLL</Elem>
+            <Elem>_FILE_OFFSET_BITS=64</Elem>
+            <Elem>__WXGTK__</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
       <item path="/home/oleg/tmp/tests/WxTestDialog/WxTestApp.cpp"
             ex="false"
             tool="1"
@@ -4389,25 +4406,18 @@
         <ccTool flags="4">
         </ccTool>
       </item>
+      <item path="/home/oleg/tmp/tests/WxTestDialog/help/GOHelpRequestor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
       <item path="/usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="4">
-        </ccTool>
-      </item>
-      <item path="MySimpleDialog.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool>
-          <incDir>
-            <pElem>/usr/lib64/wx/include/gtk3-unicode-3.2</pElem>
-            <pElem>/usr/include/wx-3.2</pElem>
-            <pElem>build</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>WXUSINGDLL</Elem>
-            <Elem>_FILE_OFFSET_BITS=64</Elem>
-            <Elem>__WXGTK__</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <folder path="0/help">
@@ -4705,10 +4715,6 @@
           </incDir>
         </ccTool>
       </folder>
-      <item path="help/GOHelpRequestor.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="1">
-        </ccTool>
-      </item>
     </conf>
   </confs>
 </configurationDescriptor>

@@ -10,16 +10,15 @@
 
 #include <vector>
 
-#include <wx/propdlg.h>
-
 #include "GODialog.h"
+#include "MySimpleDialog.h"
 
 class wxBookCtrlBase;
 class wxPanel;
 
 class GODialogTab;
 
-class GOTabbedDialog : public GODialog<wxPropertySheetDialog> {
+class GOTabbedDialog : public GODialog<MySimpleDialog> {
 private:
   std::vector<wxString> m_TabNames;
   wxBookCtrlBase *p_book;
