@@ -4,11 +4,14 @@
 
 #include <wx/menu.h>
 
-# include "WxTestDialog.hpp"
+#include "WxTestDialog.hpp"
+#include "WxTestDialog2.hpp"
 
 enum {
   ID_MODAL = 100,
-  ID_MODALLESS
+  ID_MODALLESS,
+  ID_MODAL2,
+  ID_MODELESS2
 };
 
 BEGIN_EVENT_TABLE(WxTestFrame, wxFrame)
@@ -21,6 +24,8 @@ BEGIN_EVENT_TABLE(WxTestFrame, wxFrame)
 
   EVT_MENU(ID_MODAL, WxTestFrame::OnModal)
   EVT_MENU(ID_MODALLESS, WxTestFrame::OnModalless)
+  EVT_MENU(ID_MODAL2, WxTestFrame::OnModal2)
+  EVT_MENU(ID_MODELESS2, WxTestFrame::OnModalless2)
 END_EVENT_TABLE()
 
 WxTestFrame::WxTestFrame()
@@ -35,6 +40,8 @@ WxTestFrame::WxTestFrame()
   wxMenu *menuDialogs = new wxMenu;
   menuDialogs->Append(ID_MODAL, "Modal Dialog");
   menuDialogs->Append(ID_MODALLESS, "Modalless Dialog");
+  menuDialogs->Append(ID_MODAL, "Modal Dialog2");
+  menuDialogs->Append(ID_MODALLESS, "Modalless Dialog2");
   menuBar->Append(menuDialogs, "&Dialogs");
 
   SetMenuBar(menuBar);
@@ -81,3 +88,18 @@ void WxTestFrame::OnModalless(wxCommandEvent& event)
   dlg->ShowAdvanced();
 }
 
+void WxTestFrame::OnModal2(wxCommandEvent& event)
+{
+  WxTestDialog2 dlg(this, "Modal Dialog2");
+
+  int rc = dlg.ShowModalAdvanced();
+
+  std::cout << "ShowModal returned " << rc << std::endl;
+}
+
+void WxTestFrame::OnModalless2(wxCommandEvent& event)
+{
+  WxTestDialog2 *dlg = new WxTestDialog2(this, "ModalLess Dialog2");
+
+  dlg->ShowAdvanced();
+}

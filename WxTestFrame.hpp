@@ -19,6 +19,8 @@ private:
   void OnExit(wxCommandEvent& event);
   void OnModal(wxCommandEvent& event);
   void OnModalless(wxCommandEvent& event);
+  void OnModal2(wxCommandEvent& event);
+  void OnModalless2(wxCommandEvent& event);
 
   DECLARE_EVENT_TABLE()
 };
