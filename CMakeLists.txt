@@ -12,7 +12,18 @@ include( "${wxWidgets_USE_FILE}" )
 
 # For convenience we define the sources as a variable. You can add 
 # header files and cpp/c files and CMake will sort them out
-set(SRCS WxTestApp.cpp WxTestFrame.cpp WxTestDialog.cpp WxTestDialog2.cpp GODialogCloser.cpp GOTabbedDialog.cpp MySimpleDialog.cpp help/GOHelpRequestor.cpp)
+set(
+  SRCS
+  WxTestApp.cpp
+  WxTestFrame.cpp
+  WxTestDialog.cpp
+  WxTestDialog2.cpp 
+  GODialogCloser.cpp 
+  GOSimpleDialog.cpp 
+  GOTabbedDialog.cpp 
+  MySimpleDialog.cpp 
+  help/GOHelpRequestor.cpp
+)
 
 add_executable(WxTestDialog ${SRCS})
 

@@ -4,32 +4,17 @@
 #include <wx/panel.h>
 #include <wx/string.h>
 
-#include "GOTabbedDialog.h"
+#include "GOSimpleDialog.h"
 
 class wxTreeCtrl;
 
-class WxTestDialog2 : public GOTabbedDialog {
+class WxTestDialog2 : public GOSimpleDialog {
 private:
+  wxTreeCtrl *m_Tmp;
+  wxTreeCtrl *m_AudioOutput;
 
-  class Page1 : public wxPanel {
-  private:
-    wxTreeCtrl *m_Tmp;
-    wxTreeCtrl *m_AudioOutput;
-
-  public:
-    Page1(wxWindow *parent);
-
-
-    virtual bool TransferDataToWindow() override;
-  };
-
-  class Page2 : public wxPanel {
-  public:
-    Page2(wxWindow *parent);
-  };
-
-  Page1* m_page1;
-  Page2* m_page2;
+protected:
+  virtual bool TransferDataToWindow() override;
 
 public:
   WxTestDialog2(wxWindow *parent, const wxString &title);

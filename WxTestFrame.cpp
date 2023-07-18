@@ -11,7 +11,7 @@ enum {
   ID_MODAL = 100,
   ID_MODALLESS,
   ID_MODAL2,
-  ID_MODELESS2
+  ID_MODALLESS2
 };
 
 BEGIN_EVENT_TABLE(WxTestFrame, wxFrame)
@@ -25,7 +25,7 @@ BEGIN_EVENT_TABLE(WxTestFrame, wxFrame)
   EVT_MENU(ID_MODAL, WxTestFrame::OnModal)
   EVT_MENU(ID_MODALLESS, WxTestFrame::OnModalless)
   EVT_MENU(ID_MODAL2, WxTestFrame::OnModal2)
-  EVT_MENU(ID_MODELESS2, WxTestFrame::OnModalless2)
+  EVT_MENU(ID_MODALLESS2, WxTestFrame::OnModalless2)
 END_EVENT_TABLE()
 
 WxTestFrame::WxTestFrame()
@@ -40,8 +40,8 @@ WxTestFrame::WxTestFrame()
   wxMenu *menuDialogs = new wxMenu;
   menuDialogs->Append(ID_MODAL, "Modal Dialog");
   menuDialogs->Append(ID_MODALLESS, "Modalless Dialog");
-  menuDialogs->Append(ID_MODAL, "Modal Dialog2");
-  menuDialogs->Append(ID_MODALLESS, "Modalless Dialog2");
+  menuDialogs->Append(ID_MODAL2, "Modal Dialog2");
+  menuDialogs->Append(ID_MODALLESS2, "Modalless Dialog2");
   menuBar->Append(menuDialogs, "&Dialogs");
 
   SetMenuBar(menuBar);

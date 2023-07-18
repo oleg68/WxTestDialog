@@ -10,10 +10,17 @@
 #include <wx/sizer.h>
 #include <wx/statline.h>
 
-void GOSimpleDialog::LayoutWithInnerSizer(wxSizer *pInnerSizer) {
+GOSimpleDialog::GOSimpleDialog(
+  wxWindow *win,
+  const wxString &name,  // not translated
+  const wxString &title, // translated
+  long addStyle,
+  long buttonFlags)
+  : GODialog(win, name, title, addStyle, buttonFlags) {
   wxBoxSizer *const pTopSizer = new wxBoxSizer(wxVERTICAL);
 
-  pTopSizer->Add(pInnerSizer, 1, wxGROW | wxEXPAND | wxALL, 5);
+  p_ContentSizer = new wxBoxSizer(wxVERTICAL);
+  pTopSizer->Add(p_ContentSizer, 1, wxGROW | wxEXPAND | wxALL, 5);
   pTopSizer->Add(new wxStaticLine(this), 0, wxEXPAND | wxALL, 5);
   pTopSizer->Add(GetButtonSizer(), 0, wxEXPAND | wxALL, 5);
   SetSizerAndFit(pTopSizer);
@@ -29,4 +36,8 @@ void GOSimpleDialog::LayoutWithInnerSizer(wxSizer *pInnerSizer) {
     GetSize(),
     style,
     GetName());
+}
+
+void GOSimpleDialog::LayoutWithInnerSizer(wxSizer *pInnerSizer) {
+  p_ContentSizer->Add(pInnerSizer, 1, wxGROW | wxEXPAND);
 }
