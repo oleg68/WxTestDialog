@@ -76,20 +76,7 @@ enum MySimpleDialogFlags
 class WXDLLIMPEXP_ADV MySimpleDialog : public wxDialog
 {
 public:
-    MySimpleDialog() : wxDialog() { Init(); }
-
     MySimpleDialog(wxWindow* parent, wxWindowID id,
-                       const wxString& title,
-                       const wxPoint& pos = wxDefaultPosition,
-                       const wxSize& sz = wxDefaultSize,
-                       long style = wxDEFAULT_DIALOG_STYLE,
-                       const wxString& name = wxASCII_STR(wxDialogNameStr))
-    {
-        Init();
-        Create(parent, id, title, pos, sz, style, name);
-    }
-
-    bool Create(wxWindow* parent, wxWindowID id,
                        const wxString& title,
                        const wxPoint& pos = wxDefaultPosition,
                        const wxSize& sz = wxDefaultSize,
@@ -138,12 +125,6 @@ public:
     // Adds the book control to the inner sizer.
     virtual void AddBookCtrl(wxSizer* sizer);
 
-    // Resize dialog if necessary
-    void OnIdle(wxIdleEvent& event);
-
-private:
-    void Init();
-
 protected:
     wxBookCtrlBase* m_bookCtrl;
     wxSizer*        m_innerSizer; // sizer for extra space
@@ -152,8 +133,8 @@ protected:
     int             m_sheetInnerBorder;
     int             m_selectedPage;
 
-    wxDECLARE_DYNAMIC_CLASS(MySimpleDialog);
-    wxDECLARE_EVENT_TABLE();
+    // wxDECLARE_DYNAMIC_CLASS(MySimpleDialog);
+    // wxDECLARE_EVENT_TABLE();
 };
 
 #endif // wxUSE_BOOKCTRL

@@ -47,42 +47,33 @@
 // MySimpleDialog
 //-----------------------------------------------------------------------------
 
-wxIMPLEMENT_DYNAMIC_CLASS(MySimpleDialog, wxDialog);
-
-wxBEGIN_EVENT_TABLE(MySimpleDialog, wxDialog)
-    EVT_IDLE(MySimpleDialog::OnIdle)
-wxEND_EVENT_TABLE()
-
-bool MySimpleDialog::Create(wxWindow* parent, wxWindowID id, const wxString& title,
-                                       const wxPoint& pos, const wxSize& sz, long style,
-                                       const wxString& name)
-{
-    parent = GetParentForModalDialog(parent, style);
-
-    if (!wxDialog::Create(parent, id, title, pos, sz, style|wxCLIP_CHILDREN, name))
-        return false;
-
-    wxBoxSizer *topSizer = new wxBoxSizer( wxVERTICAL );
-    SetSizer(topSizer);
-
-    // This gives more space around the edges
-    m_innerSizer = new wxBoxSizer( wxVERTICAL );
-
-    topSizer->Add(m_innerSizer, 1, wxGROW|wxALL, m_sheetOuterBorder);
-
-    m_bookCtrl = CreateBookCtrl();
-    AddBookCtrl(m_innerSizer);
-
-    return true;
-}
-
-void MySimpleDialog::Init()
+MySimpleDialog::MySimpleDialog(wxWindow* parent, wxWindowID id,
+                   const wxString& title,
+                   const wxPoint& pos,
+                   const wxSize& sz,
+                   long style,
+                   const wxString& name)
 {
     m_sheetStyle = wxPROPSHEET_DEFAULT;
     m_innerSizer = nullptr;
     m_bookCtrl = nullptr;
     m_sheetOuterBorder = 2;
     m_sheetInnerBorder = 5;
+
+    parent = GetParentForModalDialog(parent, style);
+
+    if (wxDialog::Create(parent, id, title, pos, sz, style|wxCLIP_CHILDREN, name)) {
+      wxBoxSizer *topSizer = new wxBoxSizer( wxVERTICAL );
+      SetSizer(topSizer);
+
+      // This gives more space around the edges
+      m_innerSizer = new wxBoxSizer( wxVERTICAL );
+
+      topSizer->Add(m_innerSizer, 1, wxGROW|wxALL, m_sheetOuterBorder);
+
+      m_bookCtrl = CreateBookCtrl();
+      AddBookCtrl(m_innerSizer);
+    }
 }
 
 // Layout the dialog, to be called after pages have been created
@@ -149,26 +140,6 @@ wxBookCtrlBase* MySimpleDialog::CreateBookCtrl()
 void MySimpleDialog::AddBookCtrl(wxSizer* sizer)
 {
     sizer->Add( m_bookCtrl, wxSizerFlags(1).Expand().Border(wxALL, m_sheetInnerBorder) );
-}
-
-// Resize dialog if necessary
-void MySimpleDialog::OnIdle(wxIdleEvent& event)
-{
-    event.Skip();
-
-    if ((GetSheetStyle() & wxPROPSHEET_SHRINKTOFIT) && GetBookCtrl())
-    {
-        int sel = GetBookCtrl()->GetSelection();
-        if (sel != -1 && sel != m_selectedPage)
-        {
-            GetBookCtrl()->InvalidateBestSize();
-            InvalidateBestSize();
-            SetSizeHints(-1, -1, -1, -1);
-
-            m_selectedPage = sel;
-            LayoutDialog(0);
-        }
-    }
 }
 
 // Override function in base
