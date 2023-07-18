@@ -24,6 +24,12 @@ private:
   const wxString m_name;
   wxSizer *p_ButtonSizer;
 
+  void Init(long buttonFlags) {
+    p_ButtonSizer = wxDialog::CreateButtonSizer(buttonFlags);
+    ((DialogClass *)this)
+      ->SetLayoutAdaptationMode(wxDIALOG_ADAPTATION_MODE_ENABLED);
+  }
+  
   void OnHelp(wxCommandEvent &event) {
     const wxString &helpSuffix = GetHelpSuffix();
     const wxString helpSection
@@ -33,6 +39,8 @@ private:
   }
 
 protected:
+  GODialog(long buttonFlags = wxOK | wxCANCEL | wxHELP) { Init(buttonFlags); }
+
   GODialog(
     wxWindow *win,
     const wxString &name,  // not translated
@@ -47,11 +55,7 @@ protected:
       wxDefaultSize,
       wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | addStyle),
       GODialogCloser(this),
-      m_name(name) {
-    p_ButtonSizer = wxDialog::CreateButtonSizer(buttonFlags);
-    ((DialogClass *)this)
-      ->SetLayoutAdaptationMode(wxDIALOG_ADAPTATION_MODE_ENABLED);
-  }
+      m_name(name) { Init(buttonFlags); }
 
   wxSizer *GetButtonSizer() const { return p_ButtonSizer; }
 
