@@ -17,25 +17,28 @@ GOSimpleDialog::GOSimpleDialog(
   long addStyle,
   long buttonFlags)
   : GODialog(win, name, title, addStyle, buttonFlags) {
-  wxBoxSizer *const pTopSizer = new wxBoxSizer(wxVERTICAL);
-
-  p_ContentSizer = new wxBoxSizer(wxVERTICAL);
-  pTopSizer->Add(p_ContentSizer, 1, wxGROW | wxEXPAND | wxALL, 5);
-  pTopSizer->Add(new wxStaticLine(this), 0, wxEXPAND | wxALL, 5);
-  pTopSizer->Add(GetButtonSizer(), 0, wxEXPAND | wxALL, 5);
-  SetSizerAndFit(pTopSizer);
 
   long style = GetWindowStyle();
 
-  // This call is necessary for the dialog not to cover the help window
-  Create(
-    GetParentForModalDialog(GetParent(), style),
-    GetId(),
-    GetTitle(),
-    GetPosition(),
-    GetSize(),
-    style,
-    GetName());
+    // This call is necessary for the dialog not to cover the help window
+  if (
+    Create(
+      GetParentForModalDialog(win, style),
+      wxID_ANY,
+      title,
+      wxDefaultPosition,
+      wxDefaultSize,
+      style,
+      name)) {
+    
+    wxBoxSizer *const pTopSizer = new wxBoxSizer(wxVERTICAL);
+
+    p_ContentSizer = new wxBoxSizer(wxVERTICAL);
+    pTopSizer->Add(p_ContentSizer, 1, wxGROW | wxEXPAND | wxALL, 5);
+    pTopSizer->Add(new wxStaticLine(this), 0, wxEXPAND | wxALL, 5);
+    pTopSizer->Add(GetButtonSizer(), 0, wxEXPAND | wxALL, 5);
+    SetSizerAndFit(pTopSizer);
+  }
 }
 
 void GOSimpleDialog::LayoutWithInnerSizer(wxSizer *pInnerSizer) {
