@@ -39,7 +39,8 @@ private:
   }
 
 protected:
-  GODialog(long buttonFlags = wxOK | wxCANCEL | wxHELP) { Init(buttonFlags); }
+  GODialog(long buttonFlags = wxOK | wxCANCEL | wxHELP)
+    : GODialogCloser(this) { Init(buttonFlags); }
 
   GODialog(
     wxWindow *win,

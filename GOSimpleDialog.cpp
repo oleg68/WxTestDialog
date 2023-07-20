@@ -16,7 +16,7 @@ GOSimpleDialog::GOSimpleDialog(
   const wxString &title, // translated
   long addStyle,
   long buttonFlags)
-  : GODialog(win, name, title, addStyle, buttonFlags) {
+  : GODialog(buttonFlags) {
 
   long style = GetWindowStyle();
 
