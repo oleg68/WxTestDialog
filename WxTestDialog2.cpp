@@ -23,7 +23,6 @@ public:
 
 bool WxTestDialog2::TransferDataToWindow()
 {
-  /*
   wxTreeItemId tmpRootNode = m_Tmp->AddRoot("Tmp Root");
 
   m_Tmp->AppendItem(tmpRootNode, "1");
@@ -35,7 +34,6 @@ bool WxTestDialog2::TransferDataToWindow()
   for (int i = 1; i < 15; i++)
     m_AudioOutput->AppendItem(rootNode, wxString::Format("Child%i", i));
   m_AudioOutput->Expand(rootNode);
-   */
   return true;
 }
 
@@ -43,7 +41,6 @@ WxTestDialog2::WxTestDialog2(wxWindow *parent, const wxString &title)
   : GOSimpleDialog(parent, "Test", "Test", wxDIALOG_NO_PARENT)
 {
   wxSizer *topSizer = new wxBoxSizer(wxVERTICAL);
-/*
   m_Tmp = new TestTreeCtrl(this);
   topSizer->Add(m_Tmp, 1, wxEXPAND | wxALL, 5);
   topSizer->Add(
@@ -52,7 +49,6 @@ WxTestDialog2::WxTestDialog2(wxWindow *parent, const wxString &title)
 
   m_AudioOutput = new TestTreeCtrl(this);
   topSizer->Add(m_AudioOutput, 1, wxEXPAND | wxALL, 5);
-*/
   LayoutWithInnerSizer(topSizer);
   // SetSizerAndFit(topSizer);
   // LayoutDialog();

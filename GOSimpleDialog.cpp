@@ -11,26 +11,15 @@
 #include <wx/statline.h>
 
 GOSimpleDialog::GOSimpleDialog(
-  wxWindow *win,
+  wxWindow *parent,
   const wxString &name,  // not translated
   const wxString &title, // translated
   long addStyle,
   long buttonFlags)
-  : GODialog(buttonFlags) {
-
-  long style = GetWindowStyle();
-
+  : GODialog(name) {
     // This call is necessary for the dialog not to cover the help window
   if (
-    Create(
-      GetParentForModalDialog(win, style),
-      wxID_ANY,
-      title,
-      wxDefaultPosition,
-      wxDefaultSize,
-      style,
-      name)) {
-    
+    Create(parent, title, addStyle, buttonFlags)) {
     wxBoxSizer *const pTopSizer = new wxBoxSizer(wxVERTICAL);
 
     p_ContentSizer = new wxBoxSizer(wxVERTICAL);

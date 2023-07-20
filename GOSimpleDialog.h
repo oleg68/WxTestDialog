@@ -20,7 +20,7 @@ private:
 
 protected:
   GOSimpleDialog(
-    wxWindow *win,
+    wxWindow *parent,
     const wxString &name,  // not translated
     const wxString &title, // translated
     long addStyle = 0,

@@ -19,17 +19,20 @@ class wxSizer;
 template <class DialogClass>
 class GODialog : public DialogClass, public GODialogCloser {
 private:
+  static constexpr long DEFAULT_BUTTON_FLAGS = wxOK | wxCANCEL | wxHELP;
+  static constexpr long DEFAULT_DIALOG_STYLE
+    = wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER;
   static const wxString WX_EMPTY;
 
   const wxString m_name;
-  wxSizer *p_ButtonSizer;
+  wxSizer *p_ButtonSizer = nullptr;
 
-  void Init(long buttonFlags) {
-    p_ButtonSizer = wxDialog::CreateButtonSizer(buttonFlags);
+  // For using in constructors only
+  void Init() {
     ((DialogClass *)this)
       ->SetLayoutAdaptationMode(wxDIALOG_ADAPTATION_MODE_ENABLED);
   }
-  
+
   void OnHelp(wxCommandEvent &event) {
     const wxString &helpSuffix = GetHelpSuffix();
     const wxString helpSection
@@ -39,24 +42,54 @@ private:
   }
 
 protected:
-  GODialog(long buttonFlags = wxOK | wxCANCEL | wxHELP)
-    : GODialogCloser(this) { Init(buttonFlags); }
+  // for two-step dialog creation.
+  GODialog(const wxString &name)
+    : GODialogCloser(this), m_name(name) { Init(); }
+  // wxDialog::Create must be called in the derived class constructor
 
-  GODialog(
-    wxWindow *win,
-    const wxString &name,  // not translated
-    const wxString &title, // translated
-    long addStyle = 0,
-    long buttonFlags = wxOK | wxCANCEL | wxHELP)
-    : DialogClass(
-      win,
+  bool Create(
+    wxWindow *parent,
+    const wxString &title,
+    long addStyle,
+    long buttonFlags = DEFAULT_BUTTON_FLAGS) {
+    assert(p_ButtonSizer == nullptr);
+
+    long style = DEFAULT_DIALOG_STYLE | addStyle;
+    bool retCode = wxDialog::Create(
+      ((DialogClass *)this)->GetParentForModalDialog(parent, style),
       wxID_ANY,
       title,
       wxDefaultPosition,
       wxDefaultSize,
-      wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER | addStyle),
+      style,
+      m_name
+    );
+
+    if (retCode) {
+      p_ButtonSizer = ((DialogClass *)this)->CreateButtonSizer(buttonFlags);
+    }
+    return retCode;
+  }
+
+  // for single-step dialog construction
+  GODialog(
+    wxWindow *parent,
+    const wxString &name,  // not translated
+    const wxString &title, // translated
+    long addStyle = 0,
+    long buttonFlags = DEFAULT_BUTTON_FLAGS)
+    : DialogClass(
+      parent,
+      wxID_ANY,
+      title,
+      wxDefaultPosition,
+      wxDefaultSize,
+      DEFAULT_DIALOG_STYLE | addStyle),
       GODialogCloser(this),
-      m_name(name) { Init(buttonFlags); }
+      m_name(name) {
+    Init();
+    p_ButtonSizer = ((DialogClass *)this)->CreateButtonSizer(buttonFlags);
+  }
 
   wxSizer *GetButtonSizer() const { return p_ButtonSizer; }
 
